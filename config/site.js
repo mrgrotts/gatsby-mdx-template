@@ -1,9 +1,11 @@
+const { description, dir, lang, title, theme } = require('./defaults')
+
 module.exports = {
   author: `JG`,
-  description: `Gatsby Website Template built for MDX`,
-  dir: `ltr`,
+  description,
+  dir,
   keywords: `gatsby, mdx, template, website`,
-  lang: `en`,
+  lang,
   menuLinks: [
     {
       name: 'Page 2',
@@ -12,6 +14,7 @@ module.exports = {
     }
   ],
   social: `@mrgrotts`,
-  title: `Gatsby MDX Template`,
+  title,
+  theme,
   url: `https://getroute.com`
 }

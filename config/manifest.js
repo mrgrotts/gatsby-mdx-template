@@ -1,8 +1,10 @@
+const { description, dir, lang, title, theme } = require('./defaults')
+
 module.exports = {
   background_color: `#663399`,
   categories: `business, productivity`,
-  description: `Gatsby Website Template built for MDX`,
-  dir: `ltr`,
+  description,
+  dir,
   /* 
    * Enables "Add to Homescreen" prompt and disables browser UI (including back button)
    * see https://developers.google.com/web/fundamentals/web-app-manifest/#display
@@ -11,8 +13,8 @@ module.exports = {
   */
   display: `browser`,
   icon: `src/assets/gatsby-icon.png`, // This path is relative to the root of the site.
-  lang: `en`,
-  name: `gatsby-mdx-template`,
+  lang,
+  name: title,
   /*
    * NOTE: crossOrigin has not been tested.
    */
@@ -32,5 +34,5 @@ module.exports = {
   serviceworker: { src: './sw.js' },
   short_name: `MDX Template`,
   start_url: `/`,
-  theme_color: `#663399`
+  theme_color: theme
 }
