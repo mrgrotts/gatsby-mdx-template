@@ -1,42 +1,123 @@
-const path = require("path")
+/*
+ *  Get Access to .env
+ */
+require('dotenv').config({ path: `.env.${process.env.NODE_ENV}` })
+
+const path = require('path')
+
+const manifest = require('./config/manifest')
+const siteMetadata = require('./config/site')
 
 module.exports = {
-  siteMetadata: {
-    title: `Gatsby Default Starter`,
-    description: `Kick off your next, great Gatsby project with this default starter. This barebones starter ships with the main Gatsby configuration files you might need.`,
-    author: `@gatsbyjs`,
-  },
+  siteMetadata,
   plugins: [
+    /*
+     *  MDX https://www.gatsbyjs.org/docs/mdx/
+     */
     {
       resolve: `gatsby-plugin-mdx`,
       options: {
-        defaultLayouts: { default: path.resolve("./src/components/layout.js") },
-      },
+        defaultLayouts: { default: path.resolve('./src/components/layout.js') }
+      }
     },
+
+    /*
+     * SEO Metadata
+     */
     `gatsby-plugin-react-helmet`,
+
+    /*
+     *  Access to Filesystem
+     */
     {
       resolve: `gatsby-source-filesystem`,
       options: {
-        name: `images`,
-        path: `${__dirname}/src/assets`,
-      },
+        name: `assets`,
+        path: `${__dirname}/src/assets`
+      }
     },
+
+    /*
+     * Sharp Image Processing
+     */
     `gatsby-transformer-sharp`,
     `gatsby-plugin-sharp`,
+
+    /*
+     * Website Manifest
+     */
     {
       resolve: `gatsby-plugin-manifest`,
-      options: {
-        name: `gatsby-starter-default`,
-        short_name: `starter`,
-        start_url: `/`,
-        background_color: `#663399`,
-        theme_color: `#663399`,
-        display: `minimal-ui`,
-        icon: `src/images/gatsby-icon.png`, // This path is relative to the root of the site.
-      },
+      options: manifest
     },
-    // this (optional) plugin enables Progressive Web App + Offline functionality
-    // To learn more, visit: https://gatsby.dev/offline
+
+    /*
+     *  Generate a Sitemap.
+     */
+    `gatsby-plugin-sitemap`,
+
+    /*
+     *  Robots.txt Support.
+     */
+    {
+      resolve: 'gatsby-plugin-robots-txt',
+      options: {
+        configFile: `${__dirname}/config/robots.txt.js`
+      }
+    },
+
+    /*
+     *  Styled Components
+     */
+    `gatsby-plugin-styled-components`,
+
+    /*
+     * Google Marketing Platform (Analytics, Optimize, Tag Manager)
+     */
+    {
+      resolve: 'gatsby-plugin-google-marketing-platform',
+      options: {
+        includeInDevelopment: true,
+        dataLayer: {
+          // Preset dataLayer values
+          gaPropertyId: process.env.GATSBY_GOOGLE_ANALYTICS_ID
+        },
+        analytics: {
+          id: process.env.GATSBY_GOOGLE_ANALYTICS_ID
+        },
+        optimize: {
+          id: process.env.GATSBY_GOOGLE_OPTIMIZE_ID
+        },
+        tagmanager: {
+          id: process.env.GATSBY_GOOGLE_TAG_MANAGER_ID,
+          params: {
+            // GTM URL Parameters
+            // Ex: https://www.googletagmanager.com/gtm.js?id=[ID]&gtm_cookies_win=x
+            gtm_cookies_win: 'x'
+          }
+        }
+      }
+    },
+
+    /*
+     *  Webpack Bundle Size
+     */
+    {
+      resolve: `gatsby-plugin-webpack-size`,
+      options: {
+        development: true
+      }
+    },
+
+    /*
+     * Service Worker
+     */
     // `gatsby-plugin-offline`,
-  ],
+    {
+      resolve: 'gatsby-plugin-offline',
+      options: {
+        navigateFallbackWhitelist: [/\/$/]
+      }
+    }
+  ]
 }
