@@ -6,7 +6,7 @@ require('dotenv').config({ path: `.env.${process.env.NODE_ENV}` })
 const path = require('path')
 
 const manifest = require('./config/manifest')
-const siteMetadata = require('./config/site')
+const siteMetadata = require('./config/siteMetadata')
 
 module.exports = {
   siteMetadata,
@@ -93,7 +93,7 @@ module.exports = {
           params: {
             // GTM URL Parameters
             // Ex: https://www.googletagmanager.com/gtm.js?id=[ID]&gtm_cookies_win=x
-            gtm_cookies_win: 'x'
+            // gtm_cookies_win: 'x'
           }
         }
       }

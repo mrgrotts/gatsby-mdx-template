@@ -10,18 +10,25 @@ import PropTypes from 'prop-types'
 import Helmet from 'react-helmet'
 import { useStaticQuery, graphql } from 'gatsby'
 
-function Head({
-  children,
-  date,
-  description,
-  dir,
-  lang,
-  locale,
-  meta,
-  pathname,
-  timeToRead,
-  title
-}) {
+import createBreadcrumbs from '../utils/createBreadcrumbs'
+
+function Head(
+  {
+    article,
+    children,
+    date,
+    description,
+    dir,
+    image,
+    lang,
+    locale,
+    meta,
+    pathname,
+    timeToRead,
+    title
+  },
+  ...props
+) {
   const { logo, site } = useStaticQuery(
     graphql`
       query {
@@ -43,32 +50,61 @@ function Head({
     `
   )
 
+  console.log('incoming pathname: ', pathname)
+
+  if (!pathname) {
+    if (props.location && props.location.pathname) {
+      pathname = props.location.pathname
+    } else if (global.location && global.location.pathname) {
+      pathname = global.location.pathname
+    } else {
+      pathname = '/'
+
+      /* checking to see if this should be
+       *
+       * `${site.siteMetadata.url}/${pathname || ''}`
+       *
+       * with 2 console logs above and below
+       */
+    }
+  }
+
+  if (pathname.includes('.html')) {
+    pathname = pathname.split('.')[0]
+  }
+
+  console.log('final pathname: ', pathname)
+  console.log('breadcrumbs: ', createBreadcrumbs(`MDX`, pathname))
+
+  const onChangeClientState = (newState, addedTags, removedTags) =>
+    process.env.NODE_ENV === 'development' &&
+    console.log(site.buildTime, newState, addedTags, removedTags)
+
   const metaDescription = description || site.siteMetadata.description
   const metaTitle = title || site.siteMetadata.title
 
   const seo = {
+    author: site.siteMetadata.author,
     date: date || Date.now(),
     description: metaDescription.replace(/ {2}|\r\n|\n|\r/gm, ''),
-    image: site.siteMetadata.image,
+    image: image || site.siteMetadata.url + logo.publicURL,
     keywords: site.siteMetadata.keywords,
+    logo: site.siteMetadata.url + logo.publicURL,
+    owner: site.siteMetadata.title,
     timeToRead: timeToRead ? `PT${timeToRead * 60}S` : 'PT300S',
     title: metaTitle,
-    url: `${site.siteMetadata.url}/${pathname || ''}`
+    type: article ? `article` : `website`,
+    url: pathname,
+    website: site.siteMetadata.url
   }
 
-  console.log(`SEO OBJECT: `, seo)
+  console.log(`SEO OBJECT (NOT IN USE): `, seo)
 
   return (
     <Helmet
       // defer={false}
-      onChangeClientState={(newState, addedTags, removedTags) =>
-        process.env.NODE_ENV === 'development' &&
-        console.log(site.buildTime, newState, addedTags, removedTags)
-      }
-      htmlAttributes={{
-        dir,
-        lang
-      }}
+      onChangeClientState={onChangeClientState}
+      htmlAttributes={{ dir, lang }}
       title={title}
       titleTemplate={`%s | ${site.siteMetadata.title}`}
       meta={[
@@ -127,6 +163,10 @@ function Head({
         {
           property: `fb:pages`,
           content: process.env.GATSBY_FACEBOOK_PAGE_ID
+        },
+        {
+          name: `msapplication-config`,
+          content: `none`
         },
         {
           name: `msapplication-TileColor`,
@@ -236,7 +276,39 @@ function Head({
       ].concat(meta)}
     >
       <link rel={'home'} href={'https://getroute.com/'} />
+      <link
+        rel={'image_src'}
+        type={'image/png'}
+        href={site.siteMetadata.url + logo.publicURL}
+      />
+
       {children}
+
+      {/*
+        * If Not Using Gatsby Plugin
+        *
+
+        <link rel={'canonical'} href="https://getroute.com/" />
+      */}
+
+      {/* 
+        * For Search Feature
+        *
+
+        <link
+          rel="search"
+          type="application/opensearchdescription+xml"
+          href="https://getroute.com/opensearch?locale=en_US"
+          title="Route"
+        /> 
+      */}
+
+      {/* 
+        * Potentially for pages that make up a series?
+        *
+
+        <link rel={"next"} href={"https://getroute.com/"}> 
+      */}
     </Helmet>
   )
 }

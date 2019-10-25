@@ -1,0 +1,105 @@
+/* https://codepen.io/anon/pen/xoVyxv */
+@keyframes hamburger-1-open {
+    0%   {
+        width: 2rem;
+    }
+    40%  {
+        background-color: rgba(11, 100, 233, 1); 
+        transform: translate(1rem, 0px);
+        width: 8px; 
+    }
+    75%, 80%  {
+        animation-timing-function: cubic-bezier(0, 1, 1, 1);
+        transform: translate(1rem, -1rem);
+        width: 8px;
+    }
+    100% {
+        background-color: rgba(31, 190, 218, 1);
+        transform: translate(1rem, 1rem) rotate(40deg);
+        width: 8px; 
+    }
+  }
+  
+  @keyframes hamburger-2-open {
+    80%  {
+        background-color: rgba(31, 190, 218, 1); 
+        transform: translate(0px, 0px) rotate(0deg);
+    }
+    100% {
+        background-color: rgba(31, 190, 218, 1);
+        transform: translate(8px, 0px) rotate(40deg);
+    }
+  }
+  
+  @keyframes hamburger-3-open {
+    80%  {
+        background-color: rgba(31, 190, 218, 1); 
+        transform: translate(0px, 0px) rotate(0deg);
+    }
+    100% {
+        background-color: rgba(31, 190, 218, 1); 
+        transform: translate(8px, -11px) rotate(-40deg);
+    }
+  }
+  
+  @keyframes hamburger-1-close {
+    0%, 70% {
+        width: 0px;
+    }
+    100%    {
+        width: 2rem; 
+        transform: translate(0, 0);
+    }
+  }
+  
+  @keyframes hamburger-2-close {
+    0% {
+        background-color: #ffffff; 
+        width: 2rem;
+    }
+    20%  {
+        background-color: #ffffff; 
+        transform: translate(0, 0px) rotate(40deg);
+        width: 8px;  
+    }
+    40%  {
+        background-color: rgba(31, 190, 218, 1); 
+        width: 0px;
+    }
+    65%  {
+        animation-timing-function: cubic-bezier(0, 1, 1, 1);
+        transform: translate(0, -1.5rem); 
+    }
+    80%  {
+        width: 0px;
+    }
+    100% {
+        transform: translate(0, 0px);
+        width: 2rem; 
+    }
+  }
+  
+  @keyframes hamburger-3-close {
+    0%   {
+        background-color: #ffffff; 
+        width: 2rem;
+    }
+    20%  {
+        background-color: #ffffff; 
+        transform: translate(0, -12px) rotate(-40deg);
+        width: 8px; 
+    }
+    40%  {
+        background-color: rgba(31, 190, 218, 1);}
+    65%  {
+        animation-timing-function: cubic-bezier(0, 1, 1, 1);
+        transform: translate(0, -2rem); 
+    }
+    90%  {
+        width: 8px;
+    }
+    100% {
+        transform: translate(0, 0px);
+        width: 2rem; 
+    }
+  }
