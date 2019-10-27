@@ -2,13 +2,10 @@ import { Link } from 'gatsby'
 import PropTypes from 'prop-types'
 import React from 'react'
 
+import { Header as ThemeHeader, Typography } from '../theme'
+
 const Header = ({ siteTitle }) => (
-  <header
-    style={{
-      background: `#0a0a0a`,
-      marginBottom: `1.45rem`
-    }}
-  >
+  <ThemeHeader>
     <div
       style={{
         margin: `0 auto`,
@@ -16,7 +13,7 @@ const Header = ({ siteTitle }) => (
         padding: `1.45rem 1.0875rem`
       }}
     >
-      <h1 style={{ margin: 0 }}>
+      <Typography type={`h1`}>
         <Link
           to="/"
           style={{
@@ -26,9 +23,9 @@ const Header = ({ siteTitle }) => (
         >
           {siteTitle}
         </Link>
-      </h1>
+      </Typography>
     </div>
-  </header>
+  </ThemeHeader>
 )
 
 Header.propTypes = {
