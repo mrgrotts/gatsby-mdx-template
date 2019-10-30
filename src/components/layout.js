@@ -11,7 +11,7 @@ import { useStaticQuery, graphql } from 'gatsby'
 
 import Header from './header'
 
-import Main from '../theme/Main'
+import { Main } from '../theme/Main'
 import '../theme/gatsby.css'
 import '../theme/global.css'
 
@@ -37,7 +37,7 @@ const Layout = ({ children }) => {
           paddingTop: 0
         }}
       >
-        <Main role={'main'}>{children}</Main>
+        <Main>{children}</Main>
         <footer>
           © {new Date().getFullYear()}, Built with
           {` `}
