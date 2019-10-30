@@ -17,7 +17,22 @@ module.exports = {
     {
       resolve: `gatsby-plugin-mdx`,
       options: {
-        defaultLayouts: { default: path.resolve('./src/components/layout.js') }
+        defaultLayouts: { default: path.resolve('./src/components/layout.js') },
+        gatsbyRemarkPlugins: [
+          {
+            resolve: `gatsby-remark-images`,
+            options: {
+              maxWidth: 1080,
+              // linkImagesToOriginal: false,
+              linkImagesToOriginal: true,
+              sizeByPixelDensity: true,
+              tableOfContents: {
+                heading: null,
+                maxDepth: 2
+              }
+            }
+          }
+        ]
       }
     },
 
@@ -34,6 +49,13 @@ module.exports = {
       options: {
         name: `assets`,
         path: `${__dirname}/src/assets`
+      }
+    },
+    {
+      resolve: `gatsby-source-filesystem`,
+      options: {
+        name: `posts`,
+        path: `${__dirname}/src/content/resources/route-nation`
       }
     },
 
