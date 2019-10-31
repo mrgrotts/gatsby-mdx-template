@@ -41,9 +41,9 @@ function Head(
             author
             description
             keywords
+            siteUrl
             social
             title
-            url
           }
         }
       }
@@ -62,7 +62,7 @@ function Head(
 
       /* checking to see if this should be
        *
-       * `${site.siteMetadata.url}/${pathname || ''}`
+       * `${site.siteMetadata.siteUrl}/${pathname || ''}`
        *
        * with 2 console logs above and below
        */
@@ -87,15 +87,15 @@ function Head(
     author: site.siteMetadata.author,
     date: date || Date.now(),
     description: metaDescription.replace(/ {2}|\r\n|\n|\r/gm, ''),
-    image: image || site.siteMetadata.url + logo.publicURL,
+    image: image || site.siteMetadata.siteUrl + logo.publicURL,
     keywords: site.siteMetadata.keywords,
-    logo: site.siteMetadata.url + logo.publicURL,
+    logo: site.siteMetadata.siteUrl + logo.publicURL,
     owner: site.siteMetadata.title,
     timeToRead: timeToRead ? `PT${timeToRead * 60}S` : 'PT300S',
     title: metaTitle,
     type: article ? `article` : `website`,
     url: pathname,
-    website: site.siteMetadata.url
+    website: site.siteMetadata.siteUrl
   }
 
   console.log(`SEO OBJECT (NOT IN USE): `, seo)
@@ -118,7 +118,7 @@ function Head(
         },
         {
           name: `image`,
-          content: site.siteMetadata.url + logo.publicURL
+          content: site.siteMetadata.siteUrl + logo.publicURL
         },
         {
           property: `image:height`,
@@ -178,7 +178,7 @@ function Head(
         },
         {
           name: `og:image`,
-          content: site.siteMetadata.url + logo.publicURL
+          content: site.siteMetadata.siteUrl + logo.publicURL
         },
         {
           property: `og:image:height`,
@@ -190,7 +190,7 @@ function Head(
         },
         {
           name: `og:image:secure_url`,
-          content: site.siteMetadata.url + logo.publicURL
+          content: site.siteMetadata.siteUrl + logo.publicURL
         },
         {
           property: `og:locale`,
@@ -210,7 +210,7 @@ function Head(
         },
         {
           property: `og:url`,
-          content: `${site.siteMetadata.url}/${pathname || ''}`
+          content: `${site.siteMetadata.siteUrl}${pathname || ''}`
         },
         /* This is the default Referrer Policy */
         {
@@ -247,7 +247,7 @@ function Head(
         },
         {
           name: `twitter:image`,
-          content: site.siteMetadata.url + logo.publicURL
+          content: site.siteMetadata.siteUrl + logo.publicURL
         },
         {
           property: `twitter:image:height`,
@@ -259,7 +259,7 @@ function Head(
         },
         {
           name: `twitter:site`,
-          content: site.siteMetadata.url
+          content: site.siteMetadata.siteUrl
         },
         {
           name: `twitter:text:title`,
@@ -271,7 +271,7 @@ function Head(
         },
         {
           name: `twitter:url`,
-          content: `${site.siteMetadata.url}/${pathname || ''}`
+          content: `${site.siteMetadata.siteUrl}${pathname || ''}`
         }
       ].concat(meta)}
     >
@@ -279,7 +279,7 @@ function Head(
       <link
         rel={'image_src'}
         type={'image/png'}
-        href={site.siteMetadata.url + logo.publicURL}
+        href={site.siteMetadata.siteUrl + logo.publicURL}
       />
 
       {children}

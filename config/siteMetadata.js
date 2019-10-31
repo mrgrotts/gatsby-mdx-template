@@ -13,8 +13,8 @@ module.exports = {
       //   submenu: []
     }
   ],
+  siteUrl: `https://getroute.com`,
   social: `@mrgrotts`,
   title,
-  theme,
-  url: `https://getroute.com`
+  theme
 }
