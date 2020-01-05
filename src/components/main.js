@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 
-export const Main = styled.main.attrs(props => ({
+const Main = styled.main.attrs(props => ({
   role: 'main'
 }))`
   margin: 0;
@@ -8,3 +8,5 @@ export const Main = styled.main.attrs(props => ({
   position: relative;
   overflow-wrap: break-word;
 `
+
+export default Main

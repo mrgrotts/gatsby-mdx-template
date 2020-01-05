@@ -88,15 +88,14 @@ const Link = ({ children, to, activeClassName, partiallyActive, ...other }) => {
     }
 
     return (
-      <Anchor
-        as={GatsbyLink}
+      <GatsbyLink
         to={to}
         activeClassName={activeClassName}
         partiallyActive={partiallyActive}
         {...other}
       >
-        {children}
-      </Anchor>
+        <Anchor as={'span'}>{children}</Anchor>
+      </GatsbyLink>
     )
   }
   return (

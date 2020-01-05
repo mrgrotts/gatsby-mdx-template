@@ -8,28 +8,12 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { useStaticQuery, graphql } from 'gatsby'
-import { createGlobalStyle } from 'styled-components'
-import { Box, Button, Footer, Paragraph, Grommet } from 'grommet'
+import { Box, Button, Footer, Paragraph } from 'grommet'
 
 import Header from './header'
-
+import Main from './main'
 import { StorageState } from '../hooks/storage'
-import { Main } from '../theme/Main'
-import Theme from '../theme/Theme'
-
-const GlobalStyle = createGlobalStyle`
-  img {
-    max-width: 100%;
-  }
-
-  body {
-    margin: 0;
-  }
-
-  a:active, a:focus, a:hover {
-    opacity: 0.9;
-  }
-`
+import Theme from '../theme'
 
 function setTheme(theme, callback) {
   if (theme) {
@@ -64,8 +48,7 @@ const Layout = ({ children }) => {
   `)
 
   return (
-    <Grommet theme={Theme} themeMode={theme}>
-      <GlobalStyle />
+    <Theme themeMode={theme}>
       <Header siteTitle={data.site.siteMetadata.title} />
       <Box pad={'medium'}>
         <Main>{children}</Main>
@@ -85,13 +68,12 @@ const Layout = ({ children }) => {
           primary
         />
       </Footer>
-    </Grommet>
+    </Theme>
   )
 }
 
 Layout.propTypes = {
-  children: PropTypes.node.isRequired,
-  theme: PropTypes.string
+  children: PropTypes.node.isRequired
 }
 
 export default Layout
