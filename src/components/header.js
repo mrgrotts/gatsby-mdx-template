@@ -1,25 +1,17 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { Box, Heading } from 'grommet'
+import { Box, Header as GrommetHeader, Heading } from 'grommet'
 
 import Link from './link'
 
 const Header = ({ siteTitle }) => (
-  <header style={{ backgroundColor: 'purple' }}>
+  <GrommetHeader background={'background-front'}>
     <Box>
-      <Heading level={`1`}>
-        <Link
-          to="/"
-          style={{
-            color: `white`,
-            textDecoration: `none`
-          }}
-        >
-          {siteTitle}
-        </Link>
+      <Heading color={'text-strong'} level={`1`}>
+        <Link to={'/'}>{siteTitle}</Link>
       </Heading>
     </Box>
-  </header>
+  </GrommetHeader>
 )
 
 Header.propTypes = {

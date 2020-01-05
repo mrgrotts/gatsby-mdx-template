@@ -70,20 +70,17 @@ const Layout = ({ children }) => {
       <Box pad={'medium'}>
         <Main>{children}</Main>
       </Box>
-      <Footer
-        background={Theme.global.colors['background-front'][theme]}
-        pad={'medium'}
-      >
+      <Footer background={'background-front'} pad={'medium'}>
         <Box direction={'row'}>
-          <Paragraph color={Theme.global.colors.text[theme]}>
+          <Paragraph color={'text'}>
             © {new Date().getFullYear()}, Built with{' '}
             <a href="https://www.gatsbyjs.org">Gatsby</a>
           </Paragraph>
         </Box>
 
         <Button
-          color={Theme.global.colors.brand[theme]}
-          label="Switch Theme"
+          color={'brand'}
+          label={'Switch Theme'}
           onClick={() => setTheme(theme, onChangeTheme)}
           primary
         />

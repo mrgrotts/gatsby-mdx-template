@@ -1,6 +1,7 @@
 import React from 'react'
 import { Link as GatsbyLink } from 'gatsby'
 import PropTypes from 'prop-types'
+import { Anchor } from 'grommet'
 
 // reused from https://github.com/gatsbyjs/gatsby/blob/master/packages/gatsby-plugin-google-analytics/src/index.js
 const OutboundLink = (
@@ -51,9 +52,9 @@ const OutboundLink = (
   }
 
   return (
-    <a href={href} onClick={onClick} {...props}>
+    <Anchor href={href} onClick={onClick} {...props}>
       {children}
-    </a>
+    </Anchor>
   )
 }
 
@@ -80,21 +81,22 @@ const Link = ({ children, to, activeClassName, partiallyActive, ...other }) => {
 
     if (file) {
       return (
-        <a href={to} {...other}>
+        <Anchor href={to} {...other}>
           {children}
-        </a>
+        </Anchor>
       )
     }
 
     return (
-      <GatsbyLink
+      <Anchor
+        as={GatsbyLink}
         to={to}
         activeClassName={activeClassName}
         partiallyActive={partiallyActive}
         {...other}
       >
         {children}
-      </GatsbyLink>
+      </Anchor>
     )
   }
   return (
