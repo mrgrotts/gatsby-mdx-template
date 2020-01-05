@@ -3,53 +3,63 @@ import { Link as GatsbyLink } from 'gatsby'
 import PropTypes from 'prop-types'
 
 // reused from https://github.com/gatsbyjs/gatsby/blob/master/packages/gatsby-plugin-google-analytics/src/index.js
-function OutboundLink(props) {
-  return (
-    <a
-      {...props}
-      onClick={e => {
-        if (typeof props.onClick === `function`) {
-          props.onClick(e)
-        }
-        let redirect = true
-        if (
-          e.button !== 0 ||
-          e.altKey ||
-          e.ctrlKey ||
-          e.metaKey ||
-          e.shiftKey ||
-          e.defaultPrevented
-        ) {
-          redirect = false
-        }
-        if (props.target && props.target.toLowerCase() !== `_self`) {
-          redirect = false
-        }
-        if (window.ga) {
-          window.ga(`send`, `event`, {
-            eventCategory: `Outbound Link`,
-            eventAction: `click`,
-            eventLabel: props.href,
-            transport: redirect ? `beacon` : ``,
-            hitCallback: function() {
-              if (redirect) {
-                document.location = props.href
-              }
-            }
-          })
-        } else {
+const OutboundLink = (
+  { action, category, children, href, target },
+  ...props
+) => {
+  const onClick = event => {
+    if (typeof props.onClick === `function`) {
+      props.onClick(event)
+    }
+
+    let redirect = true
+
+    if (
+      event.button !== 0 ||
+      event.altKey ||
+      event.ctrlKey ||
+      event.metaKey ||
+      event.shiftKey ||
+      event.defaultPrevented
+    ) {
+      redirect = false
+    }
+
+    if (target && target.toLowerCase() !== `_self`) {
+      redirect = false
+    }
+
+    if (window.ga) {
+      window.ga(`send`, `event`, {
+        eventCategory: category || `Outbound Link`,
+        eventAction: action || `click`,
+        eventLabel: href,
+        transport: redirect ? `beacon` : ``,
+        hitCallback: () => {
           if (redirect) {
-            document.location = props.href
+            document.location = href
           }
         }
+      })
+    } else {
+      if (redirect) {
+        document.location = href
+      }
+    }
 
-        return false
-      }}
-    />
+    return false
+  }
+
+  return (
+    <a href={href} onClick={onClick} {...props}>
+      {children}
+    </a>
   )
 }
 
 OutboundLink.propTypes = {
+  action: PropTypes.string,
+  category: PropTypes.string,
   href: PropTypes.string,
   target: PropTypes.string,
   onClick: PropTypes.func
