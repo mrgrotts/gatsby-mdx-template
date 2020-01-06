@@ -5,7 +5,7 @@ import { Anchor } from 'grommet'
 
 // reused from https://github.com/gatsbyjs/gatsby/blob/master/packages/gatsby-plugin-google-analytics/src/index.js
 const OutboundLink = (
-  { action, category, children, href, target },
+  { action, category, children, color, href, target },
   ...props
 ) => {
   const onClick = event => {
@@ -52,7 +52,7 @@ const OutboundLink = (
   }
 
   return (
-    <Anchor href={href} onClick={onClick} {...props}>
+    <Anchor href={href} color={color} onClick={onClick} {...props}>
       {children}
     </Anchor>
   )
@@ -69,7 +69,18 @@ OutboundLink.propTypes = {
 // Since DOM elements <a> cannot receive activeClassName
 // and partiallyActive, destructure the prop here and
 // pass it only to GatsbyLink
-const Link = ({ children, to, activeClassName, partiallyActive, ...other }) => {
+const Link = ({
+  children,
+  color,
+  to,
+  activeClassName,
+  partiallyActive,
+  ...other
+}) => {
+  if (!color) {
+    color = `brand`
+  }
+
   // Tailor the following test to your environment.
   // This example assumes that any internal link (intended for Gatsby)
   // will start with exactly one slash, and that anything else is external.
@@ -81,7 +92,7 @@ const Link = ({ children, to, activeClassName, partiallyActive, ...other }) => {
 
     if (file) {
       return (
-        <Anchor href={to} {...other}>
+        <Anchor href={to} color={color} {...other}>
           {children}
         </Anchor>
       )
@@ -94,12 +105,14 @@ const Link = ({ children, to, activeClassName, partiallyActive, ...other }) => {
         partiallyActive={partiallyActive}
         {...other}
       >
-        <Anchor as={'span'}>{children}</Anchor>
+        <Anchor as={'span'} color={color}>
+          {children}
+        </Anchor>
       </GatsbyLink>
     )
   }
   return (
-    <OutboundLink href={to} {...other}>
+    <OutboundLink href={to} color={color} {...other}>
       {children}
     </OutboundLink>
   )

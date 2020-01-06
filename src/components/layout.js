@@ -8,10 +8,13 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { useStaticQuery, graphql } from 'gatsby'
-import { Box, Button, Footer, Paragraph } from 'grommet'
+import { Box, Footer, Paragraph } from 'grommet'
 
 import Header from './header'
+import Link from './link'
 import Main from './main'
+import Switch from './switch'
+
 import { StorageState } from '../hooks/storage'
 import Theme from '../theme'
 
@@ -57,11 +60,10 @@ const Layout = ({ children }) => {
         <Box direction={'row'}>
           <Paragraph color={'text'}>
             © {new Date().getFullYear()}, Built with{' '}
-            <a href="https://www.gatsbyjs.org">Gatsby</a>
+            <Link to="https://www.gatsbyjs.org">Gatsby</Link>
           </Paragraph>
         </Box>
-
-        <Button
+        <Switch
           color={'brand'}
           label={'Switch Theme'}
           onClick={() => setTheme(theme, onChangeTheme)}

@@ -89,7 +89,8 @@ export default {
       'graph-1': 'status-warning'
     },
     font: {
-      family: 'Roboto',
+      family:
+        "-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif",
       size: '24px',
       height: '32px',
       maxWidth: '768px'
@@ -97,6 +98,11 @@ export default {
     active: {
       background: 'active-background',
       color: 'active-text'
+    },
+    focus: {
+      border: {
+        color: 'brand'
+      }
     },
     hover: {
       background: 'active-background',
@@ -180,6 +186,13 @@ export default {
       }
     }
   },
+  anchor: {
+    textDecoration: 'none',
+    hover: {
+      opacity: '0.9',
+      textDecoration: 'none'
+    }
+  },
   chart: {},
   diagram: {
     line: {}
@@ -188,7 +201,15 @@ export default {
   button: {
     border: {
       radius: '4px'
-    }
+    },
+    extend: `
+      transition: all 0.4s ease; 
+
+      :active, :focus, :hover { 
+        opacity: 0.9;
+        transform: translateY(-4px) 
+      }
+    `
   },
   calendar: {
     small: {

@@ -12,15 +12,6 @@ const GlobalStyle = createGlobalStyle`
   body {
     margin: 0;
   }
-
-  a {
-    text-decoration: none;
-  }
-
-  a:active, a:focus, a:hover {
-    opacity: 0.9;
-    text-decoration: none;
-  }
 `
 
 const Theme = ({ children, themeMode }) => {
