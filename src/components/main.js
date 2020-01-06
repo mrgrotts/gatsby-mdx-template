@@ -1,3 +1,5 @@
+import React from 'react'
+import { Box } from 'grommet'
 import styled from 'styled-components'
 
 const Main = styled.main.attrs(props => ({
@@ -9,4 +11,8 @@ const Main = styled.main.attrs(props => ({
   overflow-wrap: break-word;
 `
 
-export default Main
+export default ({ children }) => (
+  <Main>
+    <Box pad={'medium'}>{children}</Box>
+  </Main>
+)
