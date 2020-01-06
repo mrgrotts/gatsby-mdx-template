@@ -189,15 +189,12 @@ export default {
   anchor: {
     textDecoration: 'none',
     hover: {
-      opacity: '0.9',
+      extend: `
+        opacity: 0.9;
+      `,
       textDecoration: 'none'
     }
   },
-  chart: {},
-  diagram: {
-    line: {}
-  },
-  meter: {},
   button: {
     border: {
       radius: '4px'
@@ -228,6 +225,7 @@ export default {
       daySize: '146.28571428571428px'
     }
   },
+  chart: {},
   checkBox: {
     check: {
       radius: '4px'
@@ -257,6 +255,9 @@ export default {
         xlarge: '288px',
         huge: '384px'
       }
+    },
+    diagram: {
+      line: {}
     },
     digital: {
       text: {
@@ -423,6 +424,7 @@ export default {
       }
     }
   },
+  meter: {},
   paragraph: {
     small: {
       size: '18.666666666666668px',

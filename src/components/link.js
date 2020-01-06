@@ -61,6 +61,7 @@ const OutboundLink = (
 OutboundLink.propTypes = {
   action: PropTypes.string,
   category: PropTypes.string,
+  color: PropTypes.string,
   href: PropTypes.string,
   target: PropTypes.string,
   onClick: PropTypes.func
@@ -116,6 +117,14 @@ const Link = ({
       {children}
     </OutboundLink>
   )
+}
+
+Link.propTypes = {
+  children: PropTypes.string,
+  color: PropTypes.string,
+  to: PropTypes.string,
+  activeClassName: PropTypes.string,
+  partiallyActive: PropTypes.bool
 }
 
 export default Link
