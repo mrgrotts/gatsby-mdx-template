@@ -21,15 +21,23 @@ const GlobalStyle = createGlobalStyle`
       text-decoration: none;
     }
   }
+
+  button {
+    :active {
+      border: none;
+    }
+
+    :focus {
+      outline: none;
+    }
+  }
 `
 
-const Theme = ({ children, themeMode }) => {
-  return (
-    <Grommet theme={theme} themeMode={themeMode}>
-      <GlobalStyle />
-      {children}
-    </Grommet>
-  )
-}
+const Theme = ({ children, themeMode }) => (
+  <Grommet theme={theme} themeMode={themeMode}>
+    <GlobalStyle />
+    {children}
+  </Grommet>
+)
 
 export default Theme

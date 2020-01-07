@@ -101,7 +101,8 @@ export default {
     },
     focus: {
       border: {
-        color: 'brand'
+        color: 'transparent',
+        width: '0'
       }
     },
     hover: {
@@ -197,16 +198,40 @@ export default {
   },
   button: {
     border: {
-      radius: '4px'
+      color: {
+        dark: 'transparent',
+        light: 'transparent'
+      },
+      radius: '4px',
+      width: '0'
+    },
+    padding: {
+      horizontal: '24px',
+      vertical: '6px'
     },
     extend: `
-      transition: all 0.4s ease; 
+      transition: opacity 0.4s ease, transform 0.4s ease;
 
-      :active, :focus, :hover { 
+      :hover {
+        box-shadow: none;
         opacity: 0.9;
-        transform: translateY(-4px) 
+
+        transform: translateY(-4px);
       }
-    `
+  `
+    // extend: `
+    //   transition: opacity 0.4s ease, transform 0.4s ease;
+    //   transition-property: opacity, transform;
+    //   transition-duration: 0.4s;
+    //   transition-timing-function: ease;
+
+    //   :hover {
+    //     box-shadow: none;
+    //     opacity: 0.9;
+
+    //     transform: translateY(-4px);
+    //   }
+    // `
   },
   calendar: {
     small: {

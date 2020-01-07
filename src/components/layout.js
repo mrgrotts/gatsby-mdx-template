@@ -17,7 +17,7 @@ import { StorageState } from '../hooks/storage'
 import Theme from '../theme'
 
 const Layout = ({ children }) => {
-  const [theme, onChangeTheme] = StorageState('theme', 'light')
+  const [theme, onChangeTheme] = StorageState('theme', Theme.themeMode)
 
   const data = useStaticQuery(graphql`
     query SiteTitleQuery {
