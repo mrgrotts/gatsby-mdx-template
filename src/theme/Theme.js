@@ -4,6 +4,11 @@ export default {
   spacing: 32,
   defaultMode: 'light',
   global: {
+    drop: {
+      extend: ({ isFullscreen }) => ({
+        top: `${isFullscreen ? '0!important' : '8px'}`
+      })
+    },
     colors: {
       brand: {
         light: '#0061e4',
@@ -210,15 +215,13 @@ export default {
       vertical: '6px'
     },
     extend: `
-      transition: opacity 0.4s ease, transform 0.4s ease;
+        transition: opacity 0.4s ease;
 
-      :hover {
-        box-shadow: none;
-        opacity: 0.9;
-
-        transform: translateY(-4px);
-      }
-  `
+        :hover {
+          box-shadow: none;
+          opacity: 0.9;
+        }
+    `
     // extend: `
     //   transition: opacity 0.4s ease, transform 0.4s ease;
     //   transition-property: opacity, transform;

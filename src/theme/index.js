@@ -5,8 +5,8 @@ import { Grommet } from 'grommet'
 import theme from './theme'
 
 const GlobalStyle = createGlobalStyle`
-  img {
-    max-width: 100%;
+  html, body, #___gatsby, #gatsby-focus-wrapper {
+    height: 100%;
   }
 
   body {
@@ -31,10 +31,14 @@ const GlobalStyle = createGlobalStyle`
       outline: none;
     }
   }
+
+  img {
+    max-width: 100%;
+  }
 `
 
 const Theme = ({ children, themeMode }) => (
-  <Grommet theme={theme} themeMode={themeMode}>
+  <Grommet theme={theme} themeMode={themeMode} style={{ height: '100%' }}>
     <GlobalStyle />
     {children}
   </Grommet>

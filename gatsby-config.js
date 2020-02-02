@@ -197,7 +197,7 @@ module.exports = {
           params: {
             // GTM URL Parameters
             // Ex: https://www.googletagmanager.com/gtm.js?id=[ID]&gtm_cookies_win=x
-            // gtm_cookies_win: 'x'
+            gtm_cookies_win: 'x'
           }
         }
       }
