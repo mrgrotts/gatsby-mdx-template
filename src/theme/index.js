@@ -5,10 +5,6 @@ import { Grommet } from 'grommet'
 import theme from './theme'
 
 const GlobalStyle = createGlobalStyle`
-  html, body, #___gatsby, #gatsby-focus-wrapper {
-    height: 100%;
-  }
-
   body {
     margin: 0;
   }

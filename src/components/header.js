@@ -1,5 +1,5 @@
 import React from 'react'
-import { Box, Header as GrommetHeader } from 'grommet'
+import { Box, Header as GrommetHeader, ResponsiveContext } from 'grommet'
 import styled from 'styled-components'
 
 import Logo from './logo'
@@ -24,28 +24,32 @@ const ThemedHeader = styled(GrommetHeader)`
   z-index: 10;
 `
 
-const Header = ({ ...props }) => {
+const Header = ({ theme, ...props }) => {
   const [open, toggle] = StorageState('hamburger', false)
   const onToggle = () => toggle(!open)
 
   return (
-    <ThemedHeader
-      background={'background-front'}
-      open={open}
-      height={`xsmall`}
-      {...props}
-    >
-      <Box
-        align={`center`}
-        fill
-        direction={`row`}
-        justify={`between`}
-        pad={{ horizontal: 'medium', vertical: 'small' }}
-      >
-        <Logo />
-        <Nav open={open} onToggle={onToggle} />
-      </Box>
-    </ThemedHeader>
+    <ResponsiveContext.Consumer>
+      {responsive => (
+        <ThemedHeader
+          background={'background-front'}
+          open={open}
+          height={`xsmall`}
+          {...props}
+        >
+          <Box
+            align={`center`}
+            fill
+            direction={`row`}
+            justify={responsive === 'small' ? `between` : `start`}
+            pad={{ horizontal: 'medium', vertical: 'small' }}
+          >
+            <Logo />
+            <Nav open={open} onToggle={onToggle} theme={theme} />
+          </Box>
+        </ThemedHeader>
+      )}
+    </ResponsiveContext.Consumer>
   )
 }
 

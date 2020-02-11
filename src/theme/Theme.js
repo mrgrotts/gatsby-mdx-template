@@ -193,13 +193,17 @@ export default {
     }
   },
   anchor: {
-    textDecoration: 'none',
+    fontWeight: 400,
+    extend: `
+      line-height: 2;
+    `,
     hover: {
       extend: `
         opacity: 0.9;
       `,
       textDecoration: 'none'
-    }
+    },
+    textDecoration: 'none'
   },
   button: {
     border: {
@@ -212,7 +216,7 @@ export default {
     },
     padding: {
       horizontal: '24px',
-      vertical: '6px'
+      vertical: '12px'
     },
     extend: `
         transition: opacity 0.4s ease;

@@ -35,7 +35,7 @@ const Layout = ({ children }) => {
         rows={['xsmall', 'flex', 'xsmall']}
         style={{ minHeight: '100%' }}
       >
-        <Header gridArea={'header'} />
+        <Header gridArea={'header'} theme={theme} />
         <Main fill gap={'medium'} gridArea={'main'} pad={'medium'}>
           {children}
         </Main>

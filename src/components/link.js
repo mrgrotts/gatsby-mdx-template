@@ -73,6 +73,7 @@ OutboundLink.propTypes = {
 const Link = ({
   children,
   color,
+  href,
   to,
   activeClassName,
   partiallyActive,
@@ -101,12 +102,11 @@ const Link = ({
 
     return (
       <GatsbyLink
-        to={to}
+        to={to || href}
         activeClassName={activeClassName}
         partiallyActive={partiallyActive}
-        {...other}
       >
-        <Anchor as={'span'} color={color}>
+        <Anchor as={'span'} color={color} {...other}>
           {children}
         </Anchor>
       </GatsbyLink>

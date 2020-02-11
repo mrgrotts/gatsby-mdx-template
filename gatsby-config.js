@@ -5,7 +5,8 @@ require('dotenv').config({ path: `.env.${process.env.NODE_ENV}` })
 
 const path = require('path')
 
-const manifest = require('./config/manifest')
+const siteManifest = require('./config/siteManifest')
+const siteMenu = require('./config/siteMenu')
 const siteMetadata = require('./config/siteMetadata')
 
 const formatNewLines = string => string.replace(new RegExp('\\\\n', 'g'), '\n')
@@ -40,7 +41,10 @@ if (
 }
 
 module.exports = {
-  siteMetadata,
+  siteMetadata: {
+    ...siteMetadata,
+    siteMenu
+  },
   pathPrefix: '/',
   plugins: [
     /*
@@ -124,7 +128,7 @@ module.exports = {
      */
     {
       resolve: `gatsby-plugin-manifest`,
-      options: manifest
+      options: siteManifest
     },
 
     /*

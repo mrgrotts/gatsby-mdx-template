@@ -1,6 +1,9 @@
 import React from 'react'
-import { Anchor, Box, DropButton, ResponsiveContext } from 'grommet'
+import { graphql, useStaticQuery } from 'gatsby'
+import { Box, DropButton, Menu, ResponsiveContext } from 'grommet'
 import styled from 'styled-components'
+
+import Link from './link'
 
 const HamburgerIcon = styled(Box)`
   bottom: 16px;
@@ -11,7 +14,7 @@ const HamburgerIcon = styled(Box)`
   width: 36px;
 
   span {
-    background: #0a0a0a;
+    background: ${({ theme }) => (theme === 'dark' ? '#ffffff' : '#0a0a0a')};
     border-radius: 8px;
     display: block;
     height: 4px;
@@ -40,57 +43,98 @@ const HamburgerIcon = styled(Box)`
   }
 `
 
-const Hamburger = ({ open, onClick }) => (
-  <HamburgerIcon open={open} onClick={onClick}>
+const Hamburger = ({ open, onClick, theme }) => (
+  <HamburgerIcon open={open} onClick={onClick} theme={theme}>
     <span></span>
     <span></span>
     <span></span>
   </HamburgerIcon>
 )
 
-const Nav = ({ open, onToggle }) => (
-  <ResponsiveContext.Consumer>
-    {responsive =>
-      responsive === 'small' ? (
-        <DropButton
-          dropAlign={{ right: 'right', top: 'bottom' }}
-          dropContent={
-            <Box
-              background={'background-front'}
-              style={{ height: '100vh', width: '100vw' }}
-            >
-              <Anchor href="" label="Activity" margin="small" size="small" />
-              <Anchor href="" label="Utilization" margin="small" size="small" />
-              <Anchor
-                href=""
-                label="Virtual Machines"
-                margin="small"
-                size="small"
-              />
-            </Box>
+const NavMenu = props => {
+  const {
+    site: {
+      siteMetadata: { siteMenu }
+    }
+  } = useStaticQuery(
+    graphql`
+      query {
+        site {
+          siteMetadata {
+            siteMenu {
+              label
+              link
+              submenu {
+                label
+                link
+              }
+            }
           }
-          justifyContent={'center'}
-          label={<Hamburger open={open} onClick={onToggle} />}
-          open={open}
-          onClose={onToggle}
-          onOpen={onToggle}
-          style={{ alignItems: 'center', display: 'flex', height: '100%' }}
+        }
+      }
+    `
+  )
+
+  return siteMenu.map(({ label, link, submenu }) => {
+    if (submenu && submenu.length) {
+      const links = submenu.map(item => ({
+        as: Link,
+        label: item.label,
+        to: item.link
+      }))
+
+      return (
+        <Menu
+          key={link}
+          dropAlign={{ right: 'right', top: 'top' }}
+          label={label}
+          items={links}
+          style={{ color: '#0061e4' }}
         />
-      ) : (
-        <Box
-          margin={{ left: 'small' }}
-          round="xsmall"
-          background={{ color: 'white', opacity: 'weak' }}
-          direction="row"
-          align="center"
-          pad={{ horizontal: 'small' }}
-        >
-          <Anchor href="" label="Activity" margin="small" />
-          <Anchor href="" label="Utilization" margin="small" />
-          <Anchor href="" label="Virtual Machines" margin="small" />
-        </Box>
       )
     }
+
+    return (
+      <Link key={link} to={link} label={label} margin="small" size="medium" />
+    )
+  })
+}
+
+const Nav = ({ open, onToggle, theme }) => (
+  <ResponsiveContext.Consumer>
+    {responsive => (
+      <Box as={`nav`}>
+        {responsive === 'small' ? (
+          <DropButton
+            dropAlign={{ right: 'right', top: 'bottom' }}
+            dropContent={
+              <Box
+                background={'background-front'}
+                style={{ height: '100vh', width: '100vw' }}
+              >
+                <NavMenu />
+              </Box>
+            }
+            justifyContent={'center'}
+            label={<Hamburger open={open} onClick={onToggle} theme={theme} />}
+            open={open}
+            onClose={onToggle}
+            onOpen={onToggle}
+            style={{ alignItems: 'center', display: 'flex', height: '100%' }}
+          />
+        ) : (
+          <Box
+            margin={{ left: 'small' }}
+            round="xsmall"
+            direction="row"
+            align="center"
+            pad={{ horizontal: 'small' }}
+          >
+            <NavMenu />
+          </Box>
+        )}
+      </Box>
+    )}
   </ResponsiveContext.Consumer>
 )
 
